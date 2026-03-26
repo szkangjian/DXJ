@@ -6,6 +6,10 @@
 
 脚本入口: [japan_core_signal.py](/Users/patrick/Projects/DXJ/japan_core_signal.py)
 
+操作手册: [docs/05_dxj_strategy_playbook.md](/Users/patrick/Projects/DXJ/docs/05_dxj_strategy_playbook.md)
+
+执行日志模板: [docs/06_dxj_execution_log.md](/Users/patrick/Projects/DXJ/docs/06_dxj_execution_log.md)
+
 当前只自动执行两个 `Core` 候选：
 
 | 标的 | 策略 | 入场条件 | 出场条件 |
@@ -55,6 +59,8 @@ python japan_core_signal.py --update
 ## 月度风控
 
 月度风险报告脚本: [japan_core_risk_monitor.py](/Users/patrick/Projects/DXJ/japan_core_risk_monitor.py)
+
+税务说明: [docs/04_dxj_ewj_tax_analysis.md](/Users/patrick/Projects/DXJ/docs/04_dxj_ewj_tax_analysis.md)
 
 ```bash
 python japan_core_risk_monitor.py
