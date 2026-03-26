@@ -21,44 +21,52 @@
   - `EWJ | IBS | Cross-Hedge Divergence | Neutral`
 - 条件化参数在全样本里有时更好看，但半样本样本外验证不支持把它们拆成独立参数策略
 
-## 研究文档
+## 策略研究文档
+
+文档按阅读顺序编号，位于 `docs/` 目录。为避免目录过长，分成三个清晰区块：方法总纲、单标的研究、联合研究与执行。
 
 ### 方法总纲
 
-| 文件 | 内容 |
-| ---- | ---- |
-| [docs/00_general_research_framework.md](docs/00_general_research_framework.md) | 脱离具体标的的通用研究框架 |
-| [docs/00_dxj_research_framework.md](docs/00_dxj_research_framework.md) | 日本 ETF 这条线的落地研究框架 |
+先看研究方法，再看具体标的和执行层。
+
+| # | 文件 | 内容概要 |
+| - | ---- | -------- |
+| 00A | [通用研究框架](docs/00_general_research_framework.md) | 脱离具体标的的通用研究方法，从资产画像到执行工具化的完整流程 |
+| 00B | [日本 ETF 研究框架](docs/00_dxj_research_framework.md) | 把通用框架落到 `DXJ / EWJ` 这条线，定义研究顺序与脚本规划 |
 
 ### 单标的研究
 
-| 文件 | 内容 |
-| ---- | ---- |
-| [docs/01_dxj_research.md](docs/01_dxj_research.md) | DXJ 资产画像 |
-| [docs/01_ewj_research.md](docs/01_ewj_research.md) | EWJ 资产画像 |
-| [docs/02_dxj_event_drivers.md](docs/02_dxj_event_drivers.md) | DXJ 驱动归因 |
-| [docs/02_ewj_event_drivers.md](docs/02_ewj_event_drivers.md) | EWJ 驱动归因 |
-| [docs/03_dxj_strategy_research.md](docs/03_dxj_strategy_research.md) | DXJ 策略研究 |
-| [docs/03_ewj_strategy_research.md](docs/03_ewj_strategy_research.md) | EWJ 策略研究 |
+这一组对应 `DXJ` 和 `EWJ` 的底层画像、驱动归因和单标的策略扫描。
+
+| # | 文件 | 内容概要 |
+| - | ---- | -------- |
+| 01A | [DXJ 底层研究](docs/01_dxj_research.md) | DXJ 的流动性、波动、极端日、分布特征与资产画像 |
+| 01B | [EWJ 底层研究](docs/01_ewj_research.md) | EWJ 的流动性、波动、极端日、分布特征与资产画像 |
+| 02A | [DXJ 驱动归因](docs/02_dxj_event_drivers.md) | DXJ 与日本 beta、汇率和外部事件的驱动关系 |
+| 02B | [EWJ 驱动归因](docs/02_ewj_event_drivers.md) | EWJ 与日本 beta、汇率和外部事件的驱动关系 |
+| 03A | [DXJ 策略研究](docs/03_dxj_strategy_research.md) | DXJ 的日线规律、IBS 与 Gap 策略扫描 |
+| 03B | [EWJ 策略研究](docs/03_ewj_strategy_research.md) | EWJ 的日线规律、IBS 与 Gap 策略扫描 |
 
 ### 联合研究与执行
 
-| 文件 | 内容 |
-| ---- | ---- |
-| [docs/04_dxj_ewj_tax_analysis.md](docs/04_dxj_ewj_tax_analysis.md) | IB 交易下的美国居民 vs 非居民税务说明 |
-| [docs/05_dxj_strategy_playbook.md](docs/05_dxj_strategy_playbook.md) | DXJ/EWJ 当前策略操作手册 |
-| [docs/06_dxj_execution_log.md](docs/06_dxj_execution_log.md) | 执行与复盘日志模板 |
-| [docs/07_dxj_ewj_comparison.md](docs/07_dxj_ewj_comparison.md) | DXJ vs EWJ 核心差异 |
-| [docs/08_dxj_ewj_event_alignment.md](docs/08_dxj_ewj_event_alignment.md) | 事件对齐与相对收益拆解 |
-| [docs/09_dxj_ewj_ibs_fx_regime.md](docs/09_dxj_ewj_ibs_fx_regime.md) | IBS 与 FXY regime |
-| [docs/10_fxy_conditioning_interactions.md](docs/10_fxy_conditioning_interactions.md) | FXY × 事件类型 × 策略交互 |
-| [docs/11_condition_stability.md](docs/11_condition_stability.md) | 条件格子稳定性检查 |
-| [docs/12_stable_cell_execution.md](docs/12_stable_cell_execution.md) | 执行敏感性验证 |
-| [docs/13_condition_specific_params.md](docs/13_condition_specific_params.md) | 条件参数扫描 |
-| [docs/14_parameter_walkforward.md](docs/14_parameter_walkforward.md) | 半样本样本外验证 |
-| [docs/15_signal_shortlist.md](docs/15_signal_shortlist.md) | 候选清单与推进优先级 |
-| [docs/16_japan_core_signal_engine.md](docs/16_japan_core_signal_engine.md) | 日频信号引擎说明 |
-| [docs/risk_reports/japan_core_2026-03.md](docs/risk_reports/japan_core_2026-03.md) | 最新日本 Core 月度风控报告 |
+这一组把两个标的一起研究，并把结果收口到税务、手册、信号和风控。
+
+| # | 文件 | 内容概要 |
+| - | ---- | -------- |
+| 04 | [税务分析](docs/04_dxj_ewj_tax_analysis.md) | IB 交易 `DXJ / EWJ` 时，美国税务居民与非居民的关键税务差异 |
+| 05 | [策略操作手册](docs/05_dxj_strategy_playbook.md) | 当前日本 ETF 执行框架、Core 候选、仓位与风控纪律 |
+| 06 | [执行追踪日志模板](docs/06_dxj_execution_log.md) | 交易记录、月度汇总、税务检查和风险复盘模板 |
+| 07 | [DXJ / EWJ 对比](docs/07_dxj_ewj_comparison.md) | 两个日本 ETF 的结构差异、恢复能力和策略侧重点 |
+| 08 | [事件对齐分析](docs/08_dxj_ewj_event_alignment.md) | 对齐同日事件，拆解日本 beta 与汇率对冲效应 |
+| 09 | [IBS 与 FXY Regime](docs/09_dxj_ewj_ibs_fx_regime.md) | 测试 `FXY regime` 对 IBS 信号质量的影响 |
+| 10 | [FXY 条件交互](docs/10_fxy_conditioning_interactions.md) | 测试 `FXY × 事件类型 × 策略` 的联合条件格子 |
+| 11 | [条件格子稳定性](docs/11_condition_stability.md) | 检查有效格子是否在时间维度上保持稳定 |
+| 12 | [执行敏感性验证](docs/12_stable_cell_execution.md) | 测试更保守执行假设下，哪些格子仍然成立 |
+| 13 | [条件参数扫描](docs/13_condition_specific_params.md) | 比较统一参数与条件参数是否值得拆分 |
+| 14 | [半样本样本外验证](docs/14_parameter_walkforward.md) | 用 walk-forward 检查条件参数是否真的优于统一参数 |
+| 15 | [信号候选清单](docs/15_signal_shortlist.md) | 把 Core、Secondary、Watchlist 候选按优先级收口 |
+| 16 | [Japan Core Signal Engine](docs/16_japan_core_signal_engine.md) | 当前日频信号脚本、状态文件和月度风控入口说明 |
+| R1 | [Japan Core 月度风控报告](docs/risk_reports/japan_core_2026-03.md) | 最新一次风险监控输出，检查 Core 候选是否出现衰减迹象 |
 
 ## 数据与研究脚本
 
