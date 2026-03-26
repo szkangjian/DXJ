@@ -144,6 +144,7 @@ class DXJIBSStrategy(Strategy):
                         },
                     ))
                     self._state["positions"][asset] = None
+                    self._close_db_position(f"{asset}_IBS", asset)
 
                 elif position["days_held"] >= strat["max_hold"]:
                     signals.append(Signal(
@@ -162,6 +163,7 @@ class DXJIBSStrategy(Strategy):
                         },
                     ))
                     self._state["positions"][asset] = None
+                    self._close_db_position(f"{asset}_IBS", asset)
                 else:
                     log.info(f"{asset}: holding (day {position['days_held']}/{strat['max_hold']}, "
                              f"IBS={ibs:.3f}, return={hold_ret*100:+.2f}%)")
@@ -193,6 +195,9 @@ class DXJIBSStrategy(Strategy):
                         "entry_combo": self._combo,
                         "entry_ibs": round(ibs, 4),
                     }
+                    from qbot import db
+                    db.open_position(f"{asset}_IBS", asset, strat.get("quantity", 100),
+                                     round(close, 2), trade_date_str)
                 else:
                     reasons = []
                     if not combo_match:
@@ -217,6 +222,12 @@ class DXJIBSStrategy(Strategy):
                 log.info(f"{asset}: holding since {position['buy_date']} "
                          f"(day {position['days_held']}/{strat['max_hold']})")
         return signals
+
+    @staticmethod
+    def _close_db_position(strategy: str, symbol: str):
+        from qbot import db
+        for p in db.get_open_positions(strategy=strategy, symbol=symbol):
+            db.close_position(p["id"])
 
     # ── 订单设计 ──────────────────────────────────────────
 

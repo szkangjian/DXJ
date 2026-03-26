@@ -45,8 +45,6 @@ def run(do_update: bool = True):
 
     if not results:
         log.info("No signals today")
-        # 发一个简短的状态通知
-        _send_daily_status(strategy)
     else:
         for r in results:
             sig = r["signal"]
@@ -54,22 +52,6 @@ def run(do_update: bool = True):
             status = "SENT" if passed else "BLOCKED"
             log.info(f"{sig.symbol} {sig.direction} {status}: {sig.data.get('reason', '')}")
 
-
-def _send_daily_status(strategy):
-    """无信号时发送简短状态（可选，避免太频繁）。"""
-    if strategy._state is None:
-        return
-
-    positions = strategy._state.get("positions", {})
-    holding = [f"{k}: day {v['days_held']}" for k, v in positions.items() if v]
-
-    if holding:
-        notifier.send_text(
-            f"📊 DXJ/EWJ 日报\n\n"
-            f"Combo: {strategy._combo}\n"
-            f"持仓: {', '.join(holding)}\n"
-            f"今日无新信号"
-        )
 
 
 def main():
